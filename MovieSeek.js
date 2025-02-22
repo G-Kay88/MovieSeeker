@@ -35,3 +35,10 @@ function movieSearch() {
             container.innerHTML = `<p>Error: ${error.message}</p>`;
         });
 }
+
+// Allow "Enter" key to trigger search
+document.getElementById("search").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        movieSearch();
+    }
+});
