@@ -8,7 +8,7 @@ function movieSearch() {
         return;
     }
 
-    const API_KEY = "YOUR_TMDB_API_KEY";
+    const API_KEY = "31b861aa702feb76eda95ccdd45fbbf1";
     const API_URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`;
 
     fetch(API_URL)
