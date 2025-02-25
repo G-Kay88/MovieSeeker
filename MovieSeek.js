@@ -1,16 +1,5 @@
-// Genre IDs for 8 genres (example values)
-const genreIds = {
-    Action: 28,
-    Adventure: 12,
-    Comedy: 35,
-    Drama: 18,
-    Horror: 27,
-    Thriller: 53,
-    Romance: 10749,
-    ScienceFiction: 878
-};
-
-function fetchMoviesByGenre(genreId, genreName) {
+// Function to fetch and display movies by genre
+function fetchMoviesByGenre(genreId) {
     const container = document.getElementById("movieContainer");
     container.innerHTML = ""; // Clear previous results
 
@@ -29,19 +18,15 @@ function fetchMoviesByGenre(genreId, genreName) {
         .catch(error => {
             container.innerHTML = `<p>Error: ${error.message}</p>`;
         });
-
-    // Show movie container and back button
-    document.getElementById('movieContainer').style.display = 'grid';
-    document.getElementById('backButton').style.display = 'inline-block';
 }
 
+// Function to display movies in a grid format
 function displayMovies(movies) {
     const container = document.getElementById("movieContainer");
     container.innerHTML = ""; // Clear any existing content
 
-    // Display movies in a 5x5 grid
-    for (let i = 0; i < Math.min(movies.length, 25); i++) {
-        const movie = movies[i];
+    // Display movies in a grid
+    movies.forEach(movie => {
         const movieCard = document.createElement('div');
         movieCard.className = 'movieCard';
 
@@ -54,30 +39,10 @@ function displayMovies(movies) {
             <p>${movie.title}</p>
         `;
         container.appendChild(movieCard);
-    }
+    });
 }
 
-function showGenres() {
-    const genreGrid = document.getElementById('genreGrid');
-    genreGrid.innerHTML = ''; // Clear current content
-
-    // Create genre buttons
-    for (const genre in genreIds) {
-        const button = document.createElement('button');
-        button.className = 'genreButton';
-        button.innerText = genre;
-        button.onclick = () => fetchMoviesByGenre(genreIds[genre], genre);
-        genreGrid.appendChild(button);
-    }
-
-    // Hide movie container and back button
-    document.getElementById('movieContainer').style.display = 'none';
-    document.getElementById('backButton').style.display = 'none';
-}
-
-// Initially, show the genres when the page loads
-document.addEventListener('DOMContentLoaded', showGenres);
-
+// Function to search movies by title
 function movieSearch() {
     const query = document.getElementById("search").value.trim();
     const container = document.getElementById("movieContainer");
@@ -107,6 +72,3 @@ function movieSearch() {
             container.innerHTML = `<p>Error: ${error.message}</p>`;
         });
 }
-
-// Event listener for search button
-document.querySelector("button").addEventListener("click", movieSearch);
