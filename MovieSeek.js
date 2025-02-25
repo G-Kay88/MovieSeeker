@@ -74,8 +74,9 @@ function showGenres() {
     document.getElementById('movieContainer').style.display = 'none';
     document.getElementById('backButton').style.display = 'none';
 }
-// Initially, show the genres
-showGenres();
+
+// Initially, show the genres when the page loads
+document.addEventListener('DOMContentLoaded', showGenres);
 
 function movieSearch() {
     const query = document.getElementById("search").value.trim();
@@ -99,18 +100,13 @@ function movieSearch() {
             if (data.results.length === 0) {
                 container.innerHTML = `<p>No results found.</p>`;
             } else {
-                const movie = data.results[0]; // Get the first search result
-                const posterPath = movie.poster_path
-                    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                    : 'https://via.placeholder.com/200';
-
-                container.innerHTML = `
-                    <h2>${movie.title} (${movie.release_date ? movie.release_date.split('-')[0] : 'N/A'})</h2>
-                    <img src="${posterPath}" alt="${movie.title}">
-                `;
+                displayMovies(data.results); // Display multiple results in a grid
             }
         })
         .catch(error => {
             container.innerHTML = `<p>Error: ${error.message}</p>`;
         });
 }
+
+// Event listener for search button
+document.querySelector("button").addEventListener("click", movieSearch);
