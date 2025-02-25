@@ -1,3 +1,6 @@
+// Default Genre ID to Load Initially (e.g., Action)
+const DEFAULT_GENRE_ID = 28;
+
 // Function to fetch and display movies by genre
 function fetchMoviesByGenre(genreId) {
     const container = document.getElementById("movieContainer");
@@ -20,11 +23,11 @@ function fetchMoviesByGenre(genreId) {
         });
 }
 
+// Function to display movies in a grid format
 function displayMovies(movies) {
     const container = document.getElementById("movieContainer");
     container.innerHTML = ""; // Clear any existing content
 
-    // Display movies in a grid
     movies.forEach(movie => {
         const movieCard = document.createElement('div');
         movieCard.className = 'movieCard';
@@ -42,7 +45,6 @@ function displayMovies(movies) {
         container.appendChild(movieCard);
     });
 }
-
 
 // Function to search movies by title
 function movieSearch() {
@@ -75,5 +77,7 @@ function movieSearch() {
         });
 }
 
-fetchMoviesByGenre(28);
-displayMovies();
+// Load Default Movies on Page Load
+document.addEventListener("DOMContentLoaded", () => {
+    fetchMoviesByGenre(DEFAULT_GENRE_ID);
+});
