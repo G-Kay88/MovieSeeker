@@ -31,11 +31,25 @@
         }
         #searchBar {
             margin: 20px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         #search {
             padding: 10px;
             width: 300px;
             border-radius: 5px;
+        }
+        #searchButton {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #444;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #searchButton:hover {
+            background-color: #555;
         }
         .movieCard {
             display: inline-block;
@@ -53,6 +67,20 @@
             gap: 20px;
             margin-top: 20px;
         }
+        #pagination {
+            margin-top: 20px;
+        }
+        .pageButton {
+            padding: 5px 10px;
+            margin: 5px;
+            background-color: #444;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .pageButton:hover {
+            background-color: #555;
+        }
     </style>
 </head>
 <body>
@@ -69,11 +97,96 @@
 
     <div id="searchBar">
         <input type="text" id="search" placeholder="Search for a movie...">
-        <button onclick="movieSearch()">Search</button>
+        <button id="searchButton" onclick="movieSearch()">Search</button>
     </div>
 
     <div id="movieContainer"></div>
+    <div id="pagination"></div>
 
-    <script src="MovieSeek.js"></script>
+    <script>
+        const DEFAULT_GENRE_ID = 28;
+        const MOVIES_PER_PAGE = 15;
+        let currentMovies = [];
+        let currentPage = 1;
+
+        function fetchMoviesByGenre(genreId) {
+            fetchMovies(`https://api.themoviedb.org/3/discover/movie?api_key=31b861aa702feb76eda95ccdd45fbbf1&with_genres=${genreId}`);
+        }
+
+        function movieSearch() {
+            const query = document.getElementById("search").value.trim();
+            if (!query) {
+                document.getElementById("movieContainer").innerHTML = "<p>Please enter a movie title.</p>";
+                return;
+            }
+            fetchMovies(`https://api.themoviedb.org/3/search/movie?api_key=31b861aa702feb76eda95ccdd45fbbf1&query=${encodeURIComponent(query)}`);
+        }
+
+        function fetchMovies(apiUrl) {
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    currentMovies = data.results || [];
+                    currentPage = 1;
+                    displayMovies();
+                })
+                .catch(error => {
+                    document.getElementById("movieContainer").innerHTML = `<p>Error: ${error.message}</p>`;
+                });
+        }
+
+        function displayMovies() {
+            const container = document.getElementById("movieContainer");
+            container.innerHTML = "";
+            const start = (currentPage - 1) * MOVIES_PER_PAGE;
+            const end = start + MOVIES_PER_PAGE;
+            const moviesToShow = currentMovies.slice(start, end);
+            
+            if (moviesToShow.length === 0) {
+                container.innerHTML = "<p>No results found.</p>";
+                return;
+            }
+
+            moviesToShow.forEach(movie => {
+                const movieCard = document.createElement('div');
+                movieCard.className = 'movieCard';
+
+                const posterPath = movie.poster_path
+                    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                    : 'https://via.placeholder.com/200x300';
+
+                movieCard.innerHTML = `
+                    <a href="https://www.themoviedb.org/movie/${movie.id}" target="_blank">
+                        <img src="${posterPath}" alt="${movie.title}">
+                    </a>
+                    <p>${movie.title}</p>
+                `;
+                container.appendChild(movieCard);
+            });
+            
+            displayPagination();
+        }
+
+        function displayPagination() {
+            const pagination = document.getElementById("pagination");
+            pagination.innerHTML = "";
+            const totalPages = Math.ceil(currentMovies.length / MOVIES_PER_PAGE);
+
+            for (let i = 1; i <= totalPages; i++) {
+                const button = document.createElement("button");
+                button.className = "pageButton";
+                button.innerText = i;
+                button.onclick = () => {
+                    currentPage = i;
+                    displayMovies();
+                };
+                pagination.appendChild(button);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchMoviesByGenre(DEFAULT_GENRE_ID);
+        });
+    </script>
 </body>
 </html>
