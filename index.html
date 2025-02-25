@@ -1,74 +1,54 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Seek</title>
-    <style>
-        body {
-            font-family: 'Courier New', Courier, monospace;
-            text-align: center;
-            background-color: black;
-            color: white;
-        }
-        .nav {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .genreButton {
-            padding: 10px 20px;
-            background-color: gray;
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .genreButton.active {
-            background-color: green;
-        }
-        #searchContainer {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        #search {
-            padding: 8px;
-            width: 250px;
-            margin-bottom: 10px;
-        }
-        #movieContainer {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 10px;
-            justify-content: center;
-        }
-        .movieCard img {
-            width: 100%;
-            height: auto;
-            cursor: pointer;
-        }
-    </style>
+    <title>Movie Search App</title>
+
+<style>
+#genreNav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.genreButton {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.genreButton:hover {
+    background-color: #666;
+}
+
+.genreButton.active {
+    background-color: green;
+}
+
+        
+</style>
+    
 </head>
 <body>
+    <header>
+        <h1>Movie Search</h1>
+        <div id="searchContainer">
+            <input type="text" id="search" placeholder="Search for a movie...">
+            <button onclick="movieSearch()">Search</button>
+        </div>
+    </header>
 
-    <h1>Movie Seek</h1>
+    <!-- Navigation Bar for Genres -->
+    <nav id="genreNav"></nav>
 
-    <div class="nav" id="genreNav">
-        <!-- Genre buttons will be inserted here dynamically -->
-    </div>
-
-    <div id="searchContainer">
-        <input type="text" id="search" placeholder="Search Movie">
-        <button onclick="movieSearch()">Search</button>
-    </div>
-
-    <div id="movieContainer">
-        <!-- Movies will be displayed here -->
-    </div>
+    <!-- Movie Display Container -->
+    <div id="movieContainer"></div>
 
     <script src="MovieSeek.js"></script>
-
 </body>
 </html>
