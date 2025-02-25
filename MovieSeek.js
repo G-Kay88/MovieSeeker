@@ -43,6 +43,7 @@ function fetchMoviesByGenre(genreId, clickedButton) {
     activeGenreButton = clickedButton;
 }
 
+// Function to display movies in a grid format
 function displayMovies(movies) {
     const container = document.getElementById("movieContainer");
     container.innerHTML = ""; // Clear any existing content
