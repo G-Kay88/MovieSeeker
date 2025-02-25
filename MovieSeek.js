@@ -1,6 +1,3 @@
-fetchMoviesByGenre(28);
-displayMovies();
-
 // Function to fetch and display movies by genre
 function fetchMoviesByGenre(genreId) {
     const container = document.getElementById("movieContainer");
@@ -77,3 +74,6 @@ function movieSearch() {
             container.innerHTML = `<p>Error: ${error.message}</p>`;
         });
 }
+
+fetchMoviesByGenre(28);
+displayMovies();
