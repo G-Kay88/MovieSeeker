@@ -1,23 +1,3 @@
-// Function to fetch movie banner (random change every 30 seconds)
-function fetchRandomBanner() {
-    const bannerUrl = `https://api.themoviedb.org/3/trending/movie/day?api_key=31b861aa702feb76eda95ccdd45fbbf1`;
-    fetch(bannerUrl)
-        .then(response => response.json())
-        .then(data => {
-            const movie = data.results[0]; // Get a random trending movie
-            const posterPath = movie.backdrop_path 
-                ? `https://image.tmdb.org/t/p/w1920_and_h1080${movie.backdrop_path}` 
-                : 'https://via.placeholder.com/1920x1080?text=Movie+Banner';
-
-            document.getElementById("banner").src = posterPath;
-        })
-        .catch(error => console.error("Error fetching banner:", error));
-}
-
-// Change banner every 30 seconds
-setInterval(fetchRandomBanner, 30000);
-fetchRandomBanner();  // Initialize it right away
-
 // Search Function
 function movieSearch() {
     const query = document.getElementById("search").value.trim();
@@ -73,6 +53,26 @@ function fetchMoviesByGenre(genreId) {
             container.innerHTML = `<p>Error: ${error.message}</p>`;
         });
 }
+
+// Function to fetch movie banner (random change every 30 seconds)
+function fetchRandomBanner() {
+    const bannerUrl = `https://api.themoviedb.org/3/trending/movie/day?api_key=31b861aa702feb76eda95ccdd45fbbf1`;
+    fetch(bannerUrl)
+        .then(response => response.json())
+        .then(data => {
+            const movie = data.results[0]; // Get a random trending movie
+            const posterPath = movie.backdrop_path 
+                ? `https://image.tmdb.org/t/p/w1920_and_h1080${movie.backdrop_path}` 
+                : 'https://via.placeholder.com/1920x1080?text=Movie+Banner';
+
+            document.getElementById("banner").src = posterPath;
+        })
+        .catch(error => console.error("Error fetching banner:", error));
+}
+
+// Change banner every 30 seconds
+setInterval(fetchRandomBanner, 30000);
+fetchRandomBanner();  // Initialize it right away
 
 // Function to display movies in grid
 function displayMovies(movies) {
