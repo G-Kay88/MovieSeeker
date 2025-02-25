@@ -1,4 +1,4 @@
-=// Function to fetch and display movies by genre
+// Function to fetch and display movies by genre
 function fetchMoviesByGenre(genreId) {
     const container = document.getElementById("movieContainer");
     container.innerHTML = ""; // Clear previous results
