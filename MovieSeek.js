@@ -20,7 +20,6 @@ function fetchMoviesByGenre(genreId) {
         });
 }
 
-// Function to display movies in a grid format
 function displayMovies(movies) {
     const container = document.getElementById("movieContainer");
     container.innerHTML = ""; // Clear any existing content
@@ -35,12 +34,15 @@ function displayMovies(movies) {
             : 'https://via.placeholder.com/200x300';
 
         movieCard.innerHTML = `
-            <img src="${posterPath}" alt="${movie.title}">
+            <a href="https://www.themoviedb.org/movie/${movie.id}" target="_blank">
+                <img src="${posterPath}" alt="${movie.title}">
+            </a>
             <p>${movie.title}</p>
         `;
         container.appendChild(movieCard);
     });
 }
+
 
 // Function to search movies by title
 function movieSearch() {
