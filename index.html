@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,69 +7,73 @@
     <style>
         body {
             font-family: 'Courier New', Courier, monospace;
-            text-align: center;
             background-color: black;
             color: white;
+            text-align: center;
+            margin: 0;
         }
-        .nav {
+        .navbar {
+            background-color: #333;
+            padding: 10px;
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin-bottom: 20px;
         }
-        .genreButton {
+        .navbar button {
             padding: 10px 20px;
-            background-color: gray;
+            background-color: #444;
             color: white;
             border: none;
             cursor: pointer;
-            transition: background 0.3s;
         }
-        .genreButton.active {
-            background-color: green;
+        .navbar button:hover {
+            background-color: #555;
         }
-        #searchContainer {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px;
+        #searchBar {
+            margin: 20px auto;
         }
         #search {
-            padding: 8px;
-            width: 250px;
-            margin-bottom: 10px;
+            padding: 10px;
+            width: 300px;
+            border-radius: 5px;
         }
-        #movieContainer {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 10px;
-            justify-content: center;
+        .movieCard {
+            display: inline-block;
+            margin: 10px;
+            text-align: center;
         }
         .movieCard img {
-            width: 100%;
+            width: 200px;
             height: auto;
-            cursor: pointer;
+        }
+        #movieContainer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-
-    <h1>Movie Seek</h1>
-
-    <div class="nav" id="genreNav">
-        <!-- Genre buttons will be inserted here dynamically -->
+    <div class="navbar">
+        <button onclick="fetchMoviesByGenre(28)">Action</button>
+        <button onclick="fetchMoviesByGenre(12)">Adventure</button>
+        <button onclick="fetchMoviesByGenre(35)">Comedy</button>
+        <button onclick="fetchMoviesByGenre(18)">Drama</button>
+        <button onclick="fetchMoviesByGenre(27)">Horror</button>
+        <button onclick="fetchMoviesByGenre(53)">Thriller</button>
+        <button onclick="fetchMoviesByGenre(10749)">Romance</button>
+        <button onclick="fetchMoviesByGenre(878)">Science Fiction</button>
     </div>
 
-    <div id="searchContainer">
-        <input type="text" id="search" placeholder="Search Movie">
+    <div id="searchBar">
+        <input type="text" id="search" placeholder="Search for a movie...">
         <button onclick="movieSearch()">Search</button>
     </div>
 
-    <div id="movieContainer">
-        <!-- Movies will be displayed here -->
-    </div>
+    <div id="movieContainer"></div>
 
     <script src="MovieSeek.js"></script>
-
 </body>
 </html>
