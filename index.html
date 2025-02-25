@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,76 +6,69 @@
     <style>
         body {
             font-family: 'Courier New', Courier, monospace;
+            text-align: center;
             background-color: black;
             color: white;
-            text-align: center;
-            margin: 0;
         }
-        .navbar {
-            background-color: #333;
-            padding: 25px;
+        .nav {
             display: flex;
             justify-content: center;
             gap: 10px;
+            margin-bottom: 20px;
         }
-        .navbar button {
+        .genreButton {
             padding: 10px 20px;
-            background-color: #444;
+            background-color: gray;
             color: white;
             border: none;
             cursor: pointer;
+            transition: background 0.3s;
         }
-        .navbar button:hover {
-            background-color: #555;
+        .genreButton.active {
+            background-color: green;
         }
-        #searchBar {
-            margin: 20px auto;
+        #searchContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
         }
         #search {
-            padding: 10px;
-            width: 300px;
-            border-radius: 5px;
-        }
-        .movieCard {
-            display: inline-block;
-            margin: 10px;
-            text-align: center;
-            border-radius: 15px;
-        }
-        .movieCard img {
-            width: 200px;
-            height: auto;
+            padding: 8px;
+            width: 250px;
+            margin-bottom: 10px;
         }
         #movieContainer {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
             justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
+        }
+        .movieCard img {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <button onclick="fetchMoviesByGenre(28)">Action</button>
-        <button onclick="fetchMoviesByGenre(12)">Adventure</button>
-        <button onclick="fetchMoviesByGenre(35)">Comedy</button>
-        <button onclick="fetchMoviesByGenre(18)">Drama</button>
-        <button onclick="fetchMoviesByGenre(27)">Horror</button>
-        <button onclick="fetchMoviesByGenre(53)">Thriller</button>
-        <button onclick="fetchMoviesByGenre(10749)">Romance</button>
-        <button onclick="fetchMoviesByGenre(878)">Science Fiction</button>
+
+    <h1>Movie Seek</h1>
+
+    <div class="nav" id="genreNav">
+        <!-- Genre buttons will be inserted here dynamically -->
     </div>
 
-    <div id="searchBar">
-        <input type="text" id="search" placeholder="Search for a movie..."/></br>
+    <div id="searchContainer">
+        <input type="text" id="search" placeholder="Search Movie">
         <button onclick="movieSearch()">Search</button>
-    </div></br>
+    </div>
 
-    <div id="movieContainer"></div>
+    <div id="movieContainer">
+        <!-- Movies will be displayed here -->
+    </div>
 
     <script src="MovieSeek.js"></script>
-</body>
 
-<footer><em>All rights reserved &copySableSentinel 2025.</em></footer>
+</body>
 </html>
